@@ -55,99 +55,201 @@ public class GFG {
     }
 }
 //Initial Template for Java
-class Driver_class {
-  
-  
-  public static void main(String args[])throws IOException
-  {
-      BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-      int t  =Integer.parseInt(read.readLine());
-      while(t-- > 0)
-      {
-          String str[] = read.readLine().trim().split(" ");
-          int V = Integer.parseInt(str[0]);
-          int E = Integer.parseInt(str[1]);
-          ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
-          for(int i=0; i<V; i++) {
-              ArrayList<Integer> temp = new ArrayList<>();
-              for(int j = 0; j < V; j++)
-                  temp.add(Integer.MAX_VALUE);
-              graph.add(temp);
-          }
-          str = read.readLine().trim().split(" ");
-          int k = 0;
-          while(E-- > 0)
-          {
-              int u = Integer.parseInt(str[k++]);
-              int v = Integer.parseInt(str[k++]);
-              int w = Integer.parseInt(str[k++]);
-              u--;
-              v--;
-              graph.get(u).set(v, w);
-              graph.get(v).set(u, w);
-          }
-          System.out.println(new MST().spanningTree(V,E,graph));
-      }
-  }
-}
-/*This is a function problem.You only need to complete the function given below*/
-//User function Template for Java
-class MST
-{
-	int [] parent;
-	int[] dist;
-	int[] done;
-  static int spanningTree(int V, int E, ArrayList<ArrayList<Integer>> graph)
-  {
-	  MST one=new MST();
-	  one.parent=new int[V];
-	  one.dist=new int[V];
-	  one.done=new int[V];
-	  Arrays.fill(one.parent, -1);
-	  Arrays.fill(one.dist, Integer.MAX_VALUE);
-	  Arrays.fill(one.done, 0);
-	  one.dist[0]=0;
-	  for(int i=0;i<V-1;i++) {
-		  
-		  int ind=one.findmin(one);
-		  one.done[ind]=1;
-		  ArrayList<Integer> child=graph.get(ind);
-		  for(int j=0;j<V;j++) {
-			  //System.out.println(child.get(j)+"k");
-			  if(child.get(j)!=Integer.MAX_VALUE && one.dist[j]>child.get(j) && one.done[j]==0) {
-				  //System.out.println("ho"+" "+j);
-				  one.dist[j]=child.get(j);
-				  one.parent[j]=ind;
-			  }
-		  }
-		  /*one.print(one.parent);
-		  System.out.println();
-		  one.print(one.dist);
-		  System.out.println();*/
-		  
-	  }
-	  int mi=0;
-	  //one.print(one.dist);
-	  for(int i=0;i<V;i++) {
-		  mi+=one.dist[i];
-	  }
-	  return mi;
-  }
-  int findmin(MST one) {
-	  int min=Integer.MAX_VALUE;
-	  int minind=-1;
-	  for(int i=0;i<dist.length;i++) {
-		  if(done[i]==0 && dist[i]<min) {
-			  min=dist[i];
-			  minind=i;
-		  }
-	  }
-	  return minind;
-  }
-  void print(int[] arr) {
-  	for(int i:arr) {
-  		System.out.print(" "+i+" ");
-  	}
-  }
+package lab11ap;
 
+class box {
+	int length;
+	int breadth;
+	int height;
+	box(){
+		length=breadth=height=0;
+	}
+	box(int a,int b,int c){
+		length=a;
+		breadth=b;
+		height=c;
+	}
+	box(int y){
+		length=y;
+		breadth=y;
+		height=y;
+	}
+	void printvolume() {
+		System.out.println(length*breadth*height);
+	}
+	public static void main(String args[]) {
+		box b1=new box();
+		b1.printvolume();
+		box b2=new box(1,2,3);
+		b2.printvolume();
+		box b3=new box(4);
+		b3.printvolume();
+	}
 }
+class fibanacci {
+	
+	long[] fibo;
+	int max_size=100;
+	int curr_size;
+	public int get() {
+		return curr_size;
+	}
+	void generatesequence(int n) {
+		fibo=new long[n];
+		int k;
+		if(n==1) {
+			fibo[0]=0;
+		}
+		else {
+			fibo[0]=0;
+			fibo[1]=1;
+		}
+		k=max_size;
+		
+		if(n<=max_size) {
+			k=n;
+			curr_size=k;
+		}
+		else {
+			k=max_size;
+			curr_size=k;
+		}
+		fib(k);
+	}
+	void fib(int n) {
+		
+		for(int i=2;i<n;i++) {
+			fibo[i]=(fibo[i-1]+fibo[i-2]);
+		}
+	}
+	void displayseq() {
+		for (int o=0;o<curr_size;o++) {
+			//System.out.print(curr_size);
+			System.out.print(fibo[o]+" ");
+		}
+			
+		
+	}
+	public static void main(String args[]) {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("max size");
+		int m=sc.nextInt();
+		System.out.println("curr size");
+		int k=sc.nextInt();
+		fibanacci fib=new fibanacci();
+		fib.max_size=m;
+		fib.generatesequence(k);
+		fib.displayseq();
+		//System.out.print(fib.curr_size);
+	}
+}
+
+class xyz {
+	static int count=0;
+	
+	static char[] a3;
+	static int n;
+	public static void sum() {
+		fin(0,n);
+		}
+	public static void fin(int w,int n) {
+		
+		if (n==1) {
+				if((a3[0]=='O') || (a3[0]=='S') ||(a3[0]=='B')) {
+					
+				}
+				else {
+					count-=1;
+				}
+		}
+		else {
+			if (w==0) {
+				if((a3[w]=='O') && ((a3[w+1]=='O') || (a3[w+1]=='S'))) {
+					count+=1;
+					fin(w+1,n);
+				}
+				else if ((a3[w]=='S') && (a3[w+1]=='S')) {
+					count+=1;
+					fin(w+1,n);
+				}
+				else if (a3[w]=='B'){
+					count+=1;
+					fin(w+1,n);
+				}
+				else
+					return;
+			}
+			else if(w<n-1) {
+				if((a3[w]=='O') && ((a3[w+1]=='O') || (a3[w+1]=='S')) && ((a3[w-1]=='B') || (a3[w-1]=='O'))) {
+					count+=1;
+					fin(w+1,n);
+				}
+				else if ((a3[w]=='S') && (a3[w+1]=='S')){
+					count+=1;
+					fin(w+1,n);
+				}
+				else if ((a3[w]=='B') && ((a3[w+1]=='B') || (a3[w+1]=='O') || (a3[w+1]=='S'))) {
+					count+=1;
+					fin(w+1,n);
+				}
+				else
+					return;
+				
+				
+			}
+			else
+				return;
+		}
+	}
+	static class Reader {
+	    static BufferedReader reader;
+	    static StringTokenizer tokenizer;
+
+	    /** call this method to initialize reader for InputStream */
+	    static void init(InputStream input) {
+	        reader = new BufferedReader(
+	                     new InputStreamReader(input) );
+	        tokenizer = new StringTokenizer("");
+	    }
+
+	    /** get next word */
+	    static String next() throws IOException {
+	        while ( ! tokenizer.hasMoreTokens() ) {
+	            //TODO add check for eof if necessary
+	            tokenizer = new StringTokenizer(
+	                   reader.readLine() );
+	        }
+	        return tokenizer.nextToken();
+	    }
+
+	    static int nextInt() throws IOException {
+	        return Integer.parseInt( next() );
+	    }
+		
+	    static double nextDouble() throws IOException {
+	        return Double.parseDouble( next() );
+	    }
+	}
+	public static void main(String args[]) throws IOException {
+		xyz f =new xyz();
+		Reader.init(System.in);
+		int c=Reader.nextInt();
+		
+		String[] y=new String[c];
+		for (int i=0;i<c;i++) {
+			f.count=0;
+			String a2=Reader.next();
+			f.a3=a2.toCharArray();
+			f.n=a3.length;
+			f.sum();
+			if (f.count==(f.n-1))
+				System.out.println("yes");
+			else
+				System.out.println("no");
+		}
+				
+	}
+	
+}
+
+
