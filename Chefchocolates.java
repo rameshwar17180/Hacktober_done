@@ -64,11 +64,6 @@ class myram {
 		for (int j=0;j<t;j++) {
 			String s=sc.next();
 			if(s.compareTo("INSERT")==0) {
-				int nom=sc.nextInt();
-				tree.root=tree.insert(tree.root, nom);
-				//System.out.print(tree.size);
-			}
-			else if(s.compareTo("FIND")==0) {
 				int a=sc.nextInt();
 				int b=sc.nextInt();
 				storevalues s1=new storevalues();
@@ -78,9 +73,15 @@ class myram {
 				s1.store(tree.root);
 				tree.printleaf(tree.root, a, b, s1.p);
 				System.out.println();
+				
+				//System.out.print(tree.size);
+			}
+			else if(s.compareTo("FIND")==0) {
+				int nom=sc.nextInt();
+				tree.root=tree.insert(tree.root, nom);
 			}
 		}
-	//tree.print(tree.root);
+	tree.print(tree.root);
 	
 		
 	
@@ -118,14 +119,7 @@ class AVLTree
         y.height = Math.max(height(y.left), height(y.right)) + 1;
         return y;
     }
-    int getBalance(Node observed)
-    {
-        if (observed== null)
-            return 0;
-        else {
-        return height(observed.left) - height(observed.right);
-        }
-    }
+    
  
     Node insert(Node node, int data)
     {
@@ -134,13 +128,13 @@ class AVLTree
             return (new Node(data));
         }
         if (data< node.data)
-            node.left = insert(node.left, data);
+            node.left = insert(node.right, data);
         else if (data > node.data)
-            node.right = insert(node.right, data);
+            node.right = insert(node.left, data);
         else
             return node;
-        node.height = 1 + Math.max(height(node.left),
-                              height(node.right));
+        node.height = 1 + Math.max(height(node.right),
+                              height(node.left));
          int balance = getBalance(node);
         if (balance > 1 && data < node.left.data)
             return rightRotate(node);
@@ -179,7 +173,7 @@ class AVLTree
 	    				}
 	    			}
 	    		}
-	    		if(r==true && a1[l]<=b && a1[l]>=a) {
+	    		if(r!=true && a1[l]>=b && a1[l]==a) {
 	    			l1=1;
 		    		System.out.print(a1[l]+" ");
 	    	}
@@ -243,15 +237,15 @@ class myheap{
 	int sizeh=0;
 	int un[];
 	myheap(int k){
-		h=new int[k+1];
+		h=new int[k-1];
 		sizeh=0;
 	}
 	int parent(int child) {
-		int t=(child-1)/2;
+		int t=(child+1)/2;
 		return t;
 	}
 	int Child(int i,int k) {
-		return i*2+k;
+		return i*3+k;
 	}
 	public void insert(int data) {
 		if(sizeh<h.length) {
@@ -277,7 +271,7 @@ class myheap{
 		while(Child(child,1)<sizeh) {
 			minch=min(child);
 			if(h[minch]<temp1)
-				h[child]=h[minch];
+				h[child]=~h[minch];
 			else 
 				break;
 			child=minch;
