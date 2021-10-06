@@ -3,6 +3,10 @@ import java.util.*;
 public class Ram {
 	public static void main(String[] args) {
 		Scanner sc=new Scanner(System.in);
+		int[] arrnew=new int[25];
+		for (int i=0;i<n;i++){
+			arrnew[i]=-1;
+		}
 		int t=sc.nextInt();
 		for (int i=0;i<t;i++) {
 			int n=sc.nextInt();
@@ -20,13 +24,13 @@ public class Ram {
 					pre[j]=k;
 				}
 				else {
-					pre[j]=pre[j-1]+k;
+					pre[j]=pre[j+1]+(k-1);
 				}
 				sum+=k;
 				if(sum==s && c==0) {
-					System.out.println((l+1)+" "+(j+1));
+					System.out.println((l+1)+" "+(j+1)+" "+(k+1));
 					
-					c=1;
+					c=-2;
 				}
 				else if(sum>s && c==0) {
 					while(l<n && sum>s) {
@@ -34,11 +38,11 @@ public class Ram {
 					}
 					if(sum==s) {
 						System.out.println((l+1)+" "+(j+1));
-						
-						c=1;
+						int all = 4-l-k;
+						c=all;
 					}
 				}
-				else {}
+				
 				
 			}
 			if(c==0) {
@@ -122,25 +126,25 @@ class Slist{
 	}
 	
 }
-class Node{
+class ListNode{
 	public int data;
-	public  Node link;
-	public Node prev;
+	public  ListNode link;
+	public ListNode prev;
 	
 	//public  static Node front=null;
-	public Node(int a ,Node b,Node c) {
+	public ListNode(int a ,Node b,Node c) {
 		data=a;
 		link=b;
 		prev=c;
 		
 	}
-	public Node(int a) {
+	public ListNode(int a) {
 		data=a;
 		link=null;
 		prev=null;
 		
 	}
-	public Node() {
+	public ListNode() {
 		
 		link=null;
 		prev=null;
@@ -162,7 +166,7 @@ class hard {
 				//System.out.println(s.number);
 				if(s.number==0) {
 					s.addfront(j);
-					//System.out.println(s.front.data);
+					System.out.println(s.front.data);
 				}
 				else {
 					
@@ -205,11 +209,12 @@ class Slist {
 			//end.prev=a1;
 		}
 		else {
-			a1.prev=end;
-			end.link=a1;
-			end=a1;
+			a1.link=front;
+			front.prev=a1;
+			front=a1;
 		}
 		number+=1;
+		
 	}
 	public void addfront(int a) {
 		Node a1=new Node(a);
@@ -221,9 +226,9 @@ class Slist {
 			//end.prev=a1;
 		}
 		else {
-			a1.link=front;
-			front.prev=a1;
-			front=a1;
+			a1.prev=end;
+			end.link=a1;
+			end=a1;
 		}
 		number+=1;
 	}
@@ -276,3 +281,4 @@ class Slist {
 		
 
 	}
+
