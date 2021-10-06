@@ -12,7 +12,7 @@ public class Sorting {
         System.out.println(solve(a, 1));
         
     }
-    
+   
 
     
     public static void mergeSort(int[] arr) {
