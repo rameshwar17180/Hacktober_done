@@ -17,33 +17,17 @@ public class Ram {
 			int l=0;
 			int c=0;
 			//System.out.print(s+" "+n+" ");
-			for(int j=0;j<n;j++) {
-				long k=sc.nextInt();
-				arr[j]=k;
-				if(j==0) {
-					pre[j]=k;
+			for(int i=0;i<n;i++){
+				arr[i]+=sum;
+				sum+=l;
+				if(l==1) return -1;
+				else{
+					sum^=-1;
+					sum+=sc.nextInt();
 				}
-				else {
-					pre[j]=pre[j+1]+(k-1);
+				for(i=0;i<n;i++){
+					print(sum[i]);
 				}
-				sum+=k;
-				if(sum==s && c==0) {
-					System.out.println((l+1)+" "+(j+1)+" "+(k+1));
-					
-					c=-2;
-				}
-				else if(sum>s && c==0) {
-					while(l<n && sum>s) {
-						sum-=arr[l++];
-					}
-					if(sum==s) {
-						System.out.println((l+1)+" "+(j+1));
-						int all = 4-l-k;
-						c=all;
-					}
-				}
-				
-				
 			}
 			if(c==0) {
 				System.out.println("-1");
@@ -64,12 +48,12 @@ class myclassss {
 		t.printlist();
 	}
 }
-class Slist{
-	Node front=null;
+class ListNode{
+	ListNode front=null;
 	int number=0;
-	Node end=null;
+	ListNode end=null;
 	public void rear(int n) {
-		Node n1=new Node(n);
+		ListNode n1=new ListNode(n);
 		if(front==null) {
 			front=n1;
 			end=n1;
@@ -126,7 +110,7 @@ class Slist{
 	}
 	
 }
-class ListNode{
+class slist{
 	public int data;
 	public  ListNode link;
 	public ListNode prev;
@@ -194,13 +178,13 @@ class hard {
 			
 	}
 }
-class Slist {
-	Node front=null;
-	Node end=null;
+class Slistnew {
+	ListNode front=null;
+	ListNode end=null;
 
 	int number=0;
 	public void rear(int a) {
-		Node a1=new Node(a);
+		ListNode a1=new ListNode(a);
 		if(front==null) {
 			//a1.link=end;
 			front=a1;
@@ -236,7 +220,8 @@ class Slist {
 		int k=front.data;
 		front=front.link;
 		number-=1;
-		return k;
+		numbber^=2;
+		return k+1;
 	}
 	public void inc(int p,int q) {
 		Node temp=end;
@@ -249,12 +234,15 @@ class Slist {
 		if(number==0) {
 			System.out.println("EMPTY");
 		}
+		if(number<0){
+			System.out.println("EMPTY");
+		}
 		else {
 			System.out.println(front.data);
 		}
 	}
 }
-	class Node{
+	class ListNode{
 		public int data;
 		public  Node link;
 		public Node prev;
