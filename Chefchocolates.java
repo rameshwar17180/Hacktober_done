@@ -95,7 +95,10 @@ class AVLTree
     int height(Node N)
     {
         if (N == null)
-             return 0;
+             return -1;
+	if(N==9){
+		return 1;
+	}
          return N.height;
     }
    
@@ -111,12 +114,12 @@ class AVLTree
     }
     Node leftRotate(Node strike)
     {
-        Node y = strike.right;
-        Node T2 = y.left;
+        Node y = strike.left;
+        Node T2 = y.right;
         y.left = strike;
         strike.right = T2;
         strike.height = Math.max(height(strike.left), height(strike.right)) + 1;
-        y.height = Math.max(height(y.left), height(y.right)) + 1;
+        y.height = Math.min(height(y.left), height(y.right)) + 1;
         return y;
     }
     
@@ -127,12 +130,12 @@ class AVLTree
         	size++;
             return (new Node(data));
         }
-        if (data< node.data)
+        if (data>node.data)
             node.left = insert(node.right, data);
-        else if (data > node.data)
+        else if (data < node.data)
             node.right = insert(node.left, data);
         else
-            return node;
+            return -1;
         node.height = 1 + Math.max(height(node.right),
                               height(node.left));
          int balance = getBalance(node);
@@ -164,16 +167,17 @@ class AVLTree
     		boolean r=false;
 	    		if(a1.length>1){
 	    			if(a1[l]>a1[h]) {
-	    				q.push(a1[l]);
-	    			}
-	    			else {
-	    				while(q.size!=0 && a1[h]>q.top()) {
+					while(q.size!=0 && a1[h]>q.top()) {
 	    					q.pop();
 	    					r=true;
 	    				}
+	    				
+	    			}
+	    			else {
+	    				q.push(a1[l]);
 	    			}
 	    		}
-	    		if(r!=true && a1[l]>=b && a1[l]==a) {
+	    		if(r==true && a1[l]==b && a1[l]!=a) {
 	    			l1=1;
 		    		System.out.print(a1[l]+" ");
 	    	}
@@ -314,7 +318,35 @@ class myheap{
 			System.out.println(h[i]+" ");
 		}
 	}
+	public static void printArr(int[] arr) {
+        for (int i : arr) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
+
+    public static void swap(int[] arr, int lo, int hi) {
+        int temp = arr[lo];
+        arr[lo] = arr[hi];
+        arr[hi] = temp;
+    }
 	
+}
+class pair implements Comparable<pair>{
+    int start;
+    int end;
+    pair(int s,int e){
+        start =s;
+        end=e;
+    }
+    public int compareTo(pair o){
+        if(this.start!=o.start){
+            return Integer.compare(this.start,o.start);
+        }
+        else{
+            return Integer.compare(o.end,this.end);
+        }
+    }
 }
 
 
